@@ -29,19 +29,19 @@ body.detector-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-bottom: 86px;
+  padding-bottom: 88px;
   color: var(--text-primary);
 }
 
 /* ================= HEADER ================= */
 .detector-header {
   height: 56px;
-  background: linear-gradient(180deg, #020617, #020617e6);
+  background: linear-gradient(180deg, #020617, #020617f2);
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 14px;
+  padding: 0 16px;
   animation: slideDown 0.7s var(--ease) both;
 }
 
@@ -56,29 +56,30 @@ body.detector-page {
   letter-spacing: -0.01em;
 }
 
-/* ICON BUTTONS */
-.icon-btn {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: transform 0.25s var(--ease), background 0.25s;
+/* ================= HEADER ICONS ================= */
+.header-icon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: transform 0.35s var(--ease), opacity 0.25s;
+  animation: iconFloat 4s ease-in-out infinite;
 }
 
-.icon-btn img {
-  width: 18px;
-  height: 18px;
-  filter: invert(1);
+.header-icon img {
+  width: 100%;
+  height: 100%;
 }
 
-.icon-btn:hover {
-  background: rgba(255,255,255,0.12);
-  transform: scale(1.1);
+@keyframes iconFloat {
+  50% { transform: translateY(-3px); }
 }
 
-.icon-btn:active {
+.header-icon:hover {
+  transform: scale(1.2);
+  opacity: 0.85;
+}
+
+.header-icon:active {
   transform: scale(0.95);
 }
 
@@ -87,11 +88,11 @@ body.detector-page {
   flex: 1;
   padding: 20px 14px;
   text-align: center;
-  animation: fadeUp 0.8s var(--ease) both;
+  animation: fadeUp 0.9s var(--ease) both;
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(18px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -100,12 +101,12 @@ body.detector-page {
   background: var(--surface);
   padding: 16px;
   border-radius: var(--radius);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   font-size: 14px;
   line-height: 1.6;
   color: var(--text-secondary);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-  animation: popIn 0.9s var(--ease) both;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.07);
+  animation: popIn 0.8s var(--ease) both;
 }
 
 @keyframes popIn {
@@ -116,7 +117,7 @@ body.detector-page {
 /* ================= CHAT AREA ================= */
 .chat-area {
   min-height: 220px;
-  animation: fadeUp 1s var(--ease) both;
+  animation: fadeUp 1.1s var(--ease) both;
 }
 
 /* ================= INPUT BAR ================= */
@@ -125,11 +126,11 @@ body.detector-page {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(20,20,20,0.95);
+  background: rgba(15,15,15,0.95);
   backdrop-filter: blur(14px);
   display: flex;
-  gap: 10px;
-  padding: 12px;
+  gap: 12px;
+  padding: 12px 14px;
   align-items: center;
   animation: slideUp 0.8s var(--ease) both;
 }
@@ -154,17 +155,28 @@ body.detector-page {
   box-shadow: 0 0 0 3px rgba(34,197,94,0.35);
 }
 
-/* ATTACH BUTTON */
-.attach-btn img {
-  width: 22px;
-  height: 22px;
+/* ================= ATTACH ICON ================= */
+.attach-icon {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease);
+}
+
+.attach-icon img {
+  width: 100%;
+  height: 100%;
   filter: invert(1);
 }
 
-/* SEND BUTTON */
+.attach-icon:hover {
+  transform: scale(1.2) rotate(-8deg);
+}
+
+/* ================= SEND BUTTON ================= */
 .send-btn {
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   border: none;
   background: var(--accent);
@@ -172,17 +184,21 @@ body.detector-page {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  animation: sendPulse 3s ease-in-out infinite;
   transition: transform 0.25s var(--ease), box-shadow 0.25s;
 }
 
+@keyframes sendPulse {
+  50% { box-shadow: 0 0 0 8px rgba(34,197,94,0.15); }
+}
+
 .send-btn img {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 .send-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 10px 26px rgba(34,197,94,0.45);
+  transform: scale(1.12);
 }
 
 .send-btn:active {
@@ -190,29 +206,14 @@ body.detector-page {
 }
 
 /* ================= HIDE FILE INPUT ================= */
-#imageInput {
-  display: none;
-}
+#imageInput { display: none; }
 
-/* ================= MOBILE OPTIMIZATION ================= */
+/* ================= MOBILE ================= */
 @media (max-width: 600px) {
-  .detector-main {
-    padding: 16px 12px;
-  }
-
-  .info-card {
-    font-size: 13px;
-  }
-
-  .icon-btn {
-    width: 40px;
-    height: 40px;
-  }
-
-  .send-btn {
-    width: 48px;
-    height: 48px;
-  }
+  .detector-main { padding: 16px 12px; }
+  .info-card { font-size: 13px; }
+  .header-icon { width: 30px; height: 30px; }
+  .send-btn { width: 50px; height: 50px; }
 }
 </style>
 </head>
@@ -221,15 +222,15 @@ body.detector-page {
 
 <!-- HEADER -->
 <header class="detector-header">
-  <a href="index.html" class="icon-btn">
+  <a href="index.html" class="header-icon">
     <img src="assets/back.png" alt="Back">
   </a>
 
   <h1>Fake News Detector</h1>
 
-  <button class="icon-btn" onclick="clearChat()">
-    <img src="assets/trash.png" alt="Clear">
-  </button>
+  <div class="header-icon" onclick="clearChat()">
+    <img src="assets/trash.png" alt="Clear Chat">
+  </div>
 </header>
 
 <!-- MAIN -->
@@ -244,7 +245,7 @@ body.detector-page {
 
 <!-- INPUT BAR -->
 <footer class="input-bar">
-  <label for="imageInput" class="icon-btn attach-btn">
+  <label for="imageInput" class="attach-icon">
     <img src="assets/attach.png" alt="Attach">
   </label>
 
