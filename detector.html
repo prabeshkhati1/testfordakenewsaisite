@@ -29,20 +29,20 @@ body.detector-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-bottom: 78px;
+  padding-bottom: 86px;
   color: var(--text-primary);
 }
 
 /* ================= HEADER ================= */
 .detector-header {
   height: 56px;
-  background: var(--dark);
+  background: linear-gradient(180deg, #020617, #020617e6);
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
-  animation: slideDown 0.8s var(--ease) both;
+  padding: 0 14px;
+  animation: slideDown 0.7s var(--ease) both;
 }
 
 @keyframes slideDown {
@@ -51,57 +51,71 @@ body.detector-page {
 }
 
 .detector-header h1 {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
-.nav-icon {
-  font-size: 18px;
-  color: white;
-  cursor: pointer;
-  transition: transform 0.3s var(--ease), opacity 0.3s;
+/* ICON BUTTONS */
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.25s var(--ease), background 0.25s;
 }
 
-.nav-icon:hover {
-  transform: scale(1.15);
-  opacity: 0.85;
+.icon-btn img {
+  width: 18px;
+  height: 18px;
+  filter: invert(1);
+}
+
+.icon-btn:hover {
+  background: rgba(255,255,255,0.12);
+  transform: scale(1.1);
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
 }
 
 /* ================= MAIN ================= */
 .detector-main {
   flex: 1;
-  padding: 22px 16px;
+  padding: 20px 14px;
   text-align: center;
   animation: fadeUp 0.8s var(--ease) both;
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* ================= INFO CARD ================= */
 .info-card {
   background: var(--surface);
-  padding: 18px 16px;
+  padding: 16px;
   border-radius: var(--radius);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   font-size: 14px;
   line-height: 1.6;
   color: var(--text-secondary);
   box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-  animation: softPop 0.9s var(--ease) both;
+  animation: popIn 0.9s var(--ease) both;
 }
 
-@keyframes softPop {
-  from { opacity: 0; transform: scale(0.95); }
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
 }
 
 /* ================= CHAT AREA ================= */
 .chat-area {
-  min-height: 200px;
+  min-height: 220px;
   animation: fadeUp 1s var(--ease) both;
 }
 
@@ -111,11 +125,11 @@ body.detector-page {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(30,30,30,0.95);
-  backdrop-filter: blur(12px);
+  background: rgba(20,20,20,0.95);
+  backdrop-filter: blur(14px);
   display: flex;
   gap: 10px;
-  padding: 10px 12px;
+  padding: 12px;
   align-items: center;
   animation: slideUp 0.8s var(--ease) both;
 }
@@ -127,51 +141,52 @@ body.detector-page {
 
 .input-bar input {
   flex: 1;
-  height: 44px;
-  border-radius: 22px;
+  height: 46px;
+  border-radius: 23px;
   border: none;
   padding: 0 16px;
   font-size: 14px;
   outline: none;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.25s ease;
 }
 
 .input-bar input:focus {
   box-shadow: 0 0 0 3px rgba(34,197,94,0.35);
 }
 
-/* ================= ICON BUTTON ================= */
-.icon-btn {
-  font-size: 20px;
-  cursor: pointer;
-  color: #9ee7ff;
-  transition: transform 0.3s var(--ease), opacity 0.3s;
+/* ATTACH BUTTON */
+.attach-btn img {
+  width: 22px;
+  height: 22px;
+  filter: invert(1);
 }
 
-.icon-btn:hover {
-  transform: scale(1.2);
-  opacity: 0.85;
-}
-
-/* ================= SEND BUTTON ================= */
+/* SEND BUTTON */
 .send-btn {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   border: none;
   background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-size: 18px;
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s;
+}
+
+.send-btn img {
+  width: 20px;
+  height: 20px;
 }
 
 .send-btn:hover {
   transform: scale(1.1);
-  box-shadow: 0 8px 24px rgba(34,197,94,0.45);
+  box-shadow: 0 10px 26px rgba(34,197,94,0.45);
 }
 
 .send-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.94);
 }
 
 /* ================= HIDE FILE INPUT ================= */
@@ -179,14 +194,24 @@ body.detector-page {
   display: none;
 }
 
-/* ================= MOBILE ================= */
+/* ================= MOBILE OPTIMIZATION ================= */
 @media (max-width: 600px) {
   .detector-main {
-    padding: 18px 12px;
+    padding: 16px 12px;
   }
 
   .info-card {
     font-size: 13px;
+  }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .send-btn {
+    width: 48px;
+    height: 48px;
   }
 }
 </style>
@@ -196,15 +221,21 @@ body.detector-page {
 
 <!-- HEADER -->
 <header class="detector-header">
-  <a href="index.html" class="nav-icon">←</a>
+  <a href="index.html" class="icon-btn">
+    <img src="assets/back.png" alt="Back">
+  </a>
+
   <h1>Fake News Detector</h1>
-  <button class="nav-icon" onclick="clearChat()">🗑️</button>
+
+  <button class="icon-btn" onclick="clearChat()">
+    <img src="assets/trash.png" alt="Clear">
+  </button>
 </header>
 
 <!-- MAIN -->
 <main class="detector-main">
   <div class="info-card">
-    Welcome to the AI Fake News Detection System. You can type or paste news text,<br>
+    Welcome to the AI Fake News Detection System. You can type or paste news text,
     or upload an image containing news content for analysis.
   </div>
 
@@ -213,7 +244,9 @@ body.detector-page {
 
 <!-- INPUT BAR -->
 <footer class="input-bar">
-  <label for="imageInput" class="icon-btn">📎</label>
+  <label for="imageInput" class="icon-btn attach-btn">
+    <img src="assets/attach.png" alt="Attach">
+  </label>
 
   <input
     id="newsInput"
@@ -221,7 +254,9 @@ body.detector-page {
     placeholder="Paste news text here or upload your image..."
   />
 
-  <button class="send-btn" onclick="sendMessage()">🔎</button>
+  <button class="send-btn" onclick="sendMessage()">
+    <img src="assets/send.png" alt="Send">
+  </button>
 </footer>
 
 <!-- HIDDEN FILE INPUT -->
@@ -238,7 +273,6 @@ body.detector-page {
 
 <script>
 const newsInput = document.getElementById("newsInput");
-
 newsInput.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
