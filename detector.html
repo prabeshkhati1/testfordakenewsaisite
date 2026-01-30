@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Fake News Detector</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+/* ================= RESET ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ================= VARIABLES ================= */
+:root {
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --accent: #22c55e;
+  --dark: #020617;
+  --radius: 18px;
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* ================= BODY ================= */
+body.detector-page {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+               Helvetica, Arial, system-ui, sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 78px;
+  color: var(--text-primary);
+}
+
+/* ================= HEADER ================= */
+.detector-header {
+  height: 56px;
+  background: var(--dark);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  animation: slideDown 0.8s var(--ease) both;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.detector-header h1 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.nav-icon {
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease), opacity 0.3s;
+}
+
+.nav-icon:hover {
+  transform: scale(1.15);
+  opacity: 0.85;
+}
+
+/* ================= MAIN ================= */
+.detector-main {
+  flex: 1;
+  padding: 22px 16px;
+  text-align: center;
+  animation: fadeUp 0.8s var(--ease) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= INFO CARD ================= */
+.info-card {
+  background: var(--surface);
+  padding: 18px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  animation: softPop 0.9s var(--ease) both;
+}
+
+@keyframes softPop {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ================= CHAT AREA ================= */
+.chat-area {
+  min-height: 200px;
+  animation: fadeUp 1s var(--ease) both;
+}
+
+/* ================= INPUT BAR ================= */
+.input-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(30,30,30,0.95);
+  backdrop-filter: blur(12px);
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  align-items: center;
+  animation: slideUp 0.8s var(--ease) both;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.input-bar input {
+  flex: 1;
+  height: 44px;
+  border-radius: 22px;
+  border: none;
+  padding: 0 16px;
+  font-size: 14px;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.input-bar input:focus {
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.35);
+}
+
+/* ================= ICON BUTTON ================= */
+.icon-btn {
+  font-size: 20px;
+  cursor: pointer;
+  color: #9ee7ff;
+  transition: transform 0.3s var(--ease), opacity 0.3s;
+}
+
+.icon-btn:hover {
+  transform: scale(1.2);
+  opacity: 0.85;
+}
+
+/* ================= SEND BUTTON ================= */
+.send-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.send-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(34,197,94,0.45);
+}
+
+.send-btn:active {
+  transform: scale(0.95);
+}
+
+/* ================= HIDE FILE INPUT ================= */
+#imageInput {
+  display: none;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 600px) {
+  .detector-main {
+    padding: 18px 12px;
+  }
+
+  .info-card {
+    font-size: 13px;
+  }
+}
+</style>
+</head>
+
+<body class="detector-page">
+
+<!-- HEADER -->
+<header class="detector-header">
+  <a href="index.html" class="nav-icon">←</a>
+  <h1>Fake News Detector</h1>
+  <button class="nav-icon" onclick="clearChat()">🗑️</button>
+</header>
+
+<!-- MAIN -->
+<main class="detector-main">
+  <div class="info-card">
+    Welcome to the AI Fake News Detection System. You can type or paste news text,<br>
+    or upload an image containing news content for analysis.
+  </div>
+
+  <div class="chat-area" id="chatArea"></div>
+</main>
+
+<!-- INPUT BAR -->
+<footer class="input-bar">
+  <label for="imageInput" class="icon-btn">📎</label>
+
+  <input
+    id="newsInput"
+    type="text"
+    placeholder="Paste news text here or upload your image..."
+  />
+
+  <button class="send-btn" onclick="sendMessage()">🔎</button>
+</footer>
+
+<!-- HIDDEN FILE INPUT -->
+<input
+  type="file"
+  id="imageInput"
+  accept="image/*"
+  onchange="handleImageUpload(event)"
+/>
+
+<!-- OCR + LOGIC (UNCHANGED) -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="detector.js"></script>
+
+<script>
+const newsInput = document.getElementById("newsInput");
+
+newsInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    sendMessage();
+  }
+});
+</script>
+
+</body>
+</html>
