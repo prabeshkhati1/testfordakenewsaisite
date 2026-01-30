@@ -5,13 +5,12 @@
 <title>AI Fake News Detection System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- Inter font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ---------------- ROOT SYSTEM ---------------- */
+/* ================= ROOT ================= */
 :root {
   --bg-1: #020617;
   --bg-2: #0b1f3a;
@@ -20,19 +19,12 @@
   --text-muted: #9ca3af;
 
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --speed-fast: 0.25s;
-  --speed-med: 0.45s;
-  --speed-slow: 0.8s;
 }
 
-/* ---------------- RESET ---------------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ================= RESET ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ---------------- BODY & BACKGROUND ---------------- */
+/* ================= BODY ================= */
 body {
   font-family: "Inter", system-ui, sans-serif;
   min-height: 100vh;
@@ -41,6 +33,7 @@ body {
   background-size: 300% 300%;
   animation: bgFlow 18s ease infinite;
   overflow-x: hidden;
+  cursor: none;
 }
 
 @keyframes bgFlow {
@@ -49,168 +42,171 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ---------------- OVERLAY ---------------- */
-.overlay {
+/* ================= FLOATING BLOBS ================= */
+.blobs span {
   position: fixed;
-  inset: 0;
-  background: radial-gradient(
-    circle at top,
-    rgba(2,6,23,0.4),
-    rgba(2,6,23,0.9)
-  );
-  pointer-events: none;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(34,197,94,0.25), transparent 60%);
+  filter: blur(50px);
+  animation: float 22s linear infinite;
+  opacity: 0.35;
+  z-index: 0;
 }
 
-/* ---------------- HERO ---------------- */
+.blobs span:nth-child(1){top:10%;left:15%;}
+.blobs span:nth-child(2){top:40%;left:80%;animation-duration:28s;}
+.blobs span:nth-child(3){top:70%;left:20%;animation-duration:24s;}
+.blobs span:nth-child(4){top:80%;left:70%;animation-duration:30s;}
+
+@keyframes float {
+  50% { transform: translate(80px, -120px); }
+}
+
+/* ================= CURSOR ================= */
+.cursor {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(34,197,94,0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform .15s ease, background .15s ease;
+  z-index: 999;
+}
+
+.cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+/* ================= HERO ================= */
 .hero {
   position: relative;
   max-width: 1100px;
-  margin: 0 auto;
-  padding: 90px 20px 70px;
+  margin: auto;
+  padding: 100px 20px 80px;
   text-align: center;
   z-index: 1;
 }
 
-/* ---------------- ENTRANCE ANIMATIONS ---------------- */
-.fade-up {
+/* ================= SCROLL REVEAL ================= */
+.reveal {
   opacity: 0;
-  transform: translateY(24px);
-  animation: fadeUp var(--speed-slow) var(--ease) forwards;
+  transform: translateY(30px);
+  transition: 0.8s var(--ease);
+}
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.delay-1 { animation-delay: 0.15s; }
-.delay-2 { animation-delay: 0.3s; }
-.delay-3 { animation-delay: 0.45s; }
-.delay-4 { animation-delay: 0.6s; }
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ---------------- ICON ---------------- */
+/* ================= ICON ================= */
 .shield-icon {
   font-size: 72px;
   margin-bottom: 28px;
+  width: 96px;
+  height: 96px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 96px;
-  height: 96px;
   border-radius: 26px;
-  background: rgba(34, 197, 94, 0.14);
-  color: var(--accent);
-  box-shadow:
-    0 0 0 1px rgba(34, 197, 94, 0.3),
-    0 25px 70px rgba(34, 197, 94, 0.25);
+  background: rgba(34,197,94,.14);
+  animation: bob 6s ease-in-out infinite;
+}
+@keyframes bob {
+  50% { transform: translateY(-10px); }
 }
 
-/* ---------------- TEXT ---------------- */
-h1 {
-  font-size: 44px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
-}
-
-h2 {
-  font-size: 18px;
-  font-weight: 500;
-  color: #86efac;
-  margin-bottom: 28px;
-}
+/* ================= TEXT ================= */
+h1 { font-size: 44px; margin-bottom: 12px; }
+h2 { color: #86efac; margin-bottom: 28px; font-size: 18px; }
 
 .hero-text {
   max-width: 720px;
-  margin: 0 auto 42px;
-  font-size: 15.5px;
+  margin: 0 auto 44px;
   line-height: 1.7;
   color: #cbd5f5;
 }
 
-/* ---------------- BUTTON ---------------- */
+/* ================= BUTTON ================= */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 38px;
+  position: relative;
+  padding: 16px 42px;
   border-radius: 999px;
   background: linear-gradient(135deg, #22c55e, #4ade80);
   color: #022c22;
   font-weight: 600;
-  font-size: 15px;
   text-decoration: none;
-  transition:
-    transform var(--speed-fast) var(--ease),
-    box-shadow var(--speed-fast) var(--ease);
+  overflow: hidden;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 40px rgba(34, 197, 94, 0.4);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 25px 60px rgba(34,197,94,.45);
 }
 
-/* ---------------- FEATURES ---------------- */
+/* Ripple */
+.btn span {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255,255,255,.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple .6s ease-out;
+}
+@keyframes ripple {
+  to { width: 300px; height: 300px; opacity: 0; }
+}
+
+/* ================= FEATURES ================= */
 .features {
-  margin-top: 80px;
+  margin-top: 90px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap: 30px;
 }
 
-/* ---------------- CARD ---------------- */
+/* ================= CARD ================= */
 .card {
-  padding: 30px 28px 32px;
+  padding: 32px 28px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
   backdrop-filter: blur(14px);
-  transition:
-    transform var(--speed-med) var(--ease),
-    box-shadow var(--speed-med) var(--ease),
-    border var(--speed-med) var(--ease);
+  transform-style: preserve-3d;
+  transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(34, 197, 94, 0.4);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 35px 80px rgba(0,0,0,.5);
 }
 
-/* ---------------- CARD ICON ---------------- */
-.card .icon {
-  font-size: 36px;
-  margin-bottom: 18px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 18px;
-  background: rgba(34, 197, 94, 0.14);
-  color: var(--accent);
-  box-shadow:
-    0 0 0 1px rgba(34, 197, 94, 0.25),
-    0 12px 30px rgba(34, 197, 94, 0.25);
+/* Tooltip */
+.card::after {
+  content: "Learn more →";
+  position: absolute;
+  bottom: 18px;
+  right: 22px;
+  font-size: 12px;
+  color: #86efac;
+  opacity: 0;
+  transition: opacity .25s ease;
 }
+.card:hover::after { opacity: 1; }
 
-.card h3 {
-  font-size: 17px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.card p {
-  font-size: 14.5px;
-  line-height: 1.65;
-  color: #d1d5db;
-}
-
-/* ---------------- DISCLAIMER ---------------- */
+/* ================= DISCLAIMER ================= */
 .disclaimer {
-  margin-top: 80px;
+  margin-top: 90px;
   font-size: 13px;
   color: var(--text-muted);
 }
@@ -218,45 +214,67 @@ h2 {
 </head>
 
 <body>
-<div class="overlay"></div>
+
+<div class="blobs"><span></span><span></span><span></span><span></span></div>
+<div class="cursor"></div>
+<div class="cursor-dot"></div>
 
 <main class="hero">
-  <div class="shield-icon fade-up">🛡️</div>
-
-  <h1 class="fade-up delay-1">AI Fake News Detection System</h1>
-  <h2 class="fade-up delay-2">“Think Before You Believe”</h2>
-
-  <p class="hero-text fade-up delay-3">
-    Our advanced AI system analyzes news articles and images to detect
-    misinformation using OCR and machine learning, providing confidence
-    scores and transparent explanations.
+  <div class="shield-icon reveal">🛡️</div>
+  <h1 class="reveal">AI Fake News Detection System</h1>
+  <h2 class="reveal">“Think Before You Believe”</h2>
+  <p class="hero-text reveal">
+    Advanced AI analyzes text and images to detect misinformation with confidence scores and transparent explanations.
   </p>
-
-  <a href="detector.html" class="btn fade-up delay-4">Launch Detector</a>
+  <a href="detector.html" class="btn reveal">Launch Detector</a>
 
   <section class="features">
-    <div class="card fade-up delay-1">
-      <div class="icon">🔍</div>
-      <h3>Text Analysis</h3>
-      <p>Paste news content and receive instant AI-based credibility analysis.</p>
-    </div>
-
-    <div class="card fade-up delay-2">
-      <div class="icon">🖼️</div>
-      <h3>Image OCR</h3>
-      <p>Upload screenshots or photos and extract text automatically.</p>
-    </div>
-
-    <div class="card fade-up delay-3">
-      <div class="icon">✅</div>
-      <h3>Verdict & Explanation</h3>
-      <p>Clear verdicts supported by confidence scores and reasoning.</p>
-    </div>
+    <div class="card reveal">🔍<h3>Text Analysis</h3><p>Instant credibility check.</p></div>
+    <div class="card reveal">🖼️<h3>Image OCR</h3><p>Extract text automatically.</p></div>
+    <div class="card reveal">✅<h3>Verdict</h3><p>Clear explanation & confidence.</p></div>
   </section>
 
-  <div class="disclaimer fade-up delay-4">
+  <div class="disclaimer reveal">
     Academic Project Credit: Prabesh (Team Lead), Nirdosh, Koshish
   </div>
 </main>
+
+<script>
+/* Cursor */
+const cursor = document.querySelector(".cursor");
+const dot = document.querySelector(".cursor-dot");
+
+window.addEventListener("mousemove", e => {
+  cursor.style.left = dot.style.left = e.clientX + "px";
+  cursor.style.top = dot.style.top = e.clientY + "px";
+});
+
+/* Ripple */
+document.querySelector(".btn").addEventListener("click", e => {
+  const r = document.createElement("span");
+  r.style.left = e.offsetX + "px";
+  r.style.top = e.offsetY + "px";
+  e.target.appendChild(r);
+  setTimeout(()=>r.remove(),600);
+});
+
+/* Scroll reveal */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => e.isIntersecting && e.target.classList.add("show"));
+},{threshold:.15});
+
+document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+
+/* Card tilt */
+document.querySelectorAll(".card").forEach(card => {
+  card.addEventListener("mousemove", e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5;
+    const y = (e.clientY - r.top) / r.height - .5;
+    card.style.transform = `rotateX(${ -y*6 }deg) rotateY(${ x*6 }deg)`;
+  });
+  card.addEventListener("mouseleave", () => card.style.transform = "none");
+});
+</script>
 </body>
 </html>
