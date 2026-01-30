@@ -15,33 +15,36 @@
 
 /* ================= VARIABLES ================= */
 :root {
-  --bg: #f9fafb;
-  --card: rgba(255, 255, 255, 0.85);
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --accent: #16a34a;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --accent: #1db954; /* subtle, controlled green */
+  --radius: 20px;
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 /* ================= BODY ================= */
 body {
-  font-family: Helvetica, Arial, system-ui, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+               Helvetica, Arial, system-ui, sans-serif;
   background: var(--bg);
-  color: var(--text-main);
+  color: var(--text-primary);
   overflow-x: hidden;
   cursor: none;
 }
 
-/* ================= CUSTOM CURSOR (UNCHANGED LOGIC) ================= */
+/* ================= CURSOR (REFINED) ================= */
 .cursor-ring {
   position: fixed;
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(22,163,74,0.35), transparent 65%);
+  background: rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(8px);
   transform: translate(-50%, -50%);
   pointer-events: none;
-  transition: transform 0.15s ease;
+  transition: transform 0.2s ease, background 0.2s ease;
   z-index: 9999;
 }
 
@@ -49,127 +52,86 @@ body {
   position: fixed;
   width: 6px;
   height: 6px;
-  background: #16a34a;
+  background: var(--text-primary);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 9999;
 }
 
-/* ================= FLOATING BACKGROUND BLOBS ================= */
-.blob {
-  position: fixed;
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(22,163,74,0.25), transparent 65%);
-  filter: blur(90px);
-  animation: floatBlob 22s infinite ease-in-out;
-  z-index: 0;
-}
-
-.blob.one { top: -12%; left: -12%; }
-.blob.two { bottom: -12%; right: -12%; animation-delay: -8s; }
-
-@keyframes floatBlob {
-  50% { transform: translate(140px, -120px) scale(1.15); }
-}
-
 /* ================= HERO ================= */
 .hero {
-  position: relative;
-  max-width: 1100px;
+  max-width: 980px;
   margin: auto;
-  padding: 120px 20px 110px;
+  padding: 140px 20px 120px;
   text-align: center;
-  z-index: 1;
 }
 
-/* ================= REVEAL ANIMATION ================= */
+/* ================= REVEAL ================= */
 .reveal {
   opacity: 0;
-  transform: translateY(40px) scale(0.98);
-  filter: blur(6px);
-  transition: 1s var(--ease);
+  transform: translateY(30px);
+  transition: 1.2s var(--ease);
 }
 
 .reveal.show {
   opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
+  transform: translateY(0);
 }
 
-/* ================= SHIELD ICON (STANDALONE) ================= */
+/* ================= ICON ================= */
 .shield {
-  font-size: 56px;
-  margin-bottom: 28px;
+  font-size: 44px;
+  margin-bottom: 32px;
   display: inline-block;
-  animation: shieldFloat 6s ease-in-out infinite;
+  animation: floatIcon 8s ease-in-out infinite;
 }
 
-@keyframes shieldFloat {
-  50% { transform: translateY(-10px); }
+@keyframes floatIcon {
+  50% { transform: translateY(-8px); }
 }
 
 /* ================= TEXT ================= */
 h1 {
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 14px;
+  font-size: 52px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
 }
 
 h2 {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
   color: var(--accent);
-  margin-bottom: 34px;
+  margin-bottom: 40px;
 }
 
 .hero p {
   max-width: 720px;
-  margin: 0 auto 56px;
-  font-size: 16px;
+  margin: 0 auto 64px;
+  font-size: 17px;
   line-height: 1.75;
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 /* ================= BUTTON ================= */
 .btn {
-  position: relative;
-  display: inline-block;
-  padding: 18px 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 44px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #16a34a, #22c55e);
+  background: var(--text-primary);
   color: white;
-  font-weight: 600;
   font-size: 15px;
+  font-weight: 500;
   text-decoration: none;
-  overflow: hidden;
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease);
 }
 
 .btn:hover {
-  transform: translateY(-6px) scale(1.05);
-  box-shadow: 0 40px 90px rgba(22,163,74,0.5);
-}
-
-/* Ripple */
-.btn span {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: rgba(255,255,255,0.7);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: ripple 0.6s ease-out;
-}
-
-@keyframes ripple {
-  to {
-    width: 420px;
-    height: 420px;
-    opacity: 0;
-  }
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.18);
 }
 
 /* ================= FEATURES ================= */
@@ -177,68 +139,50 @@ h2 {
   margin-top: 120px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
+  gap: 32px;
 }
 
 /* ================= CARD ================= */
 .card {
-  position: relative;
-  background: var(--card);
+  background: var(--surface);
+  border-radius: var(--radius);
   padding: 40px;
-  border-radius: 26px;
-  box-shadow: 0 40px 90px rgba(0,0,0,0.08);
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-  transform-style: preserve-3d;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  transition: transform 0.8s var(--ease), box-shadow 0.8s var(--ease);
 }
 
 .card:hover {
-  box-shadow: 0 70px 150px rgba(0,0,0,0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.12);
 }
 
 .card .icon {
-  font-size: 36px;
+  font-size: 28px;
   margin-bottom: 18px;
 }
 
 .card h3 {
   font-size: 18px;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
 .card p {
   font-size: 15px;
-  color: var(--text-muted);
-}
-
-/* Tooltip */
-.card::after {
-  content: "Explore →";
-  position: absolute;
-  bottom: 22px;
-  right: 28px;
-  font-size: 13px;
-  color: var(--accent);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.card:hover::after {
-  opacity: 1;
+  line-height: 1.6;
+  color: var(--text-secondary);
 }
 
 /* ================= DISCLAIMER ================= */
 .disclaimer {
-  margin-top: 130px;
+  margin-top: 140px;
   font-size: 13px;
-  color: #64748b;
+  color: #8e8e93;
 }
 </style>
 </head>
 
 <body>
-
-<div class="blob one"></div>
-<div class="blob two"></div>
 
 <div class="cursor-ring"></div>
 <div class="cursor-dot"></div>
@@ -250,8 +194,9 @@ h2 {
   <h2 class="reveal">Think Before You Believe</h2>
 
   <p class="reveal">
-    A modern AI system that analyzes news text and images using machine learning
-    and OCR to detect misinformation with confidence-based explanations.
+    A clean, modern AI system that analyzes news text and images using
+    machine learning and OCR to identify misinformation with clarity
+    and confidence.
   </p>
 
   <a href="detector.html" class="btn reveal">Launch Detector</a>
@@ -260,19 +205,19 @@ h2 {
     <div class="card reveal">
       <div class="icon">🔍</div>
       <h3>Text Analysis</h3>
-      <p>Instant credibility scoring for pasted news.</p>
+      <p>Instant credibility evaluation for written content.</p>
     </div>
 
     <div class="card reveal">
       <div class="icon">🖼️</div>
       <h3>Image OCR</h3>
-      <p>Extract and analyze text from images.</p>
+      <p>Extract and analyze text from images with precision.</p>
     </div>
 
     <div class="card reveal">
       <div class="icon">✅</div>
       <h3>Verdict</h3>
-      <p>Clear, explainable and confidence-based results.</p>
+      <p>Clear, explainable results you can trust.</p>
     </div>
   </section>
 
@@ -282,7 +227,7 @@ h2 {
 </main>
 
 <script>
-/* Cursor */
+/* Cursor tracking */
 const ring = document.querySelector(".cursor-ring");
 const dot = document.querySelector(".cursor-dot");
 
@@ -291,36 +236,14 @@ window.addEventListener("mousemove", e => {
   ring.style.top = dot.style.top = e.clientY + "px";
 });
 
-/* Ripple */
-document.querySelector(".btn").addEventListener("click", e => {
-  const r = document.createElement("span");
-  r.style.left = e.offsetX + "px";
-  r.style.top = e.offsetY + "px";
-  e.target.appendChild(r);
-  setTimeout(() => r.remove(), 600);
-});
-
 /* Scroll reveal */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add("show");
   });
-}, { threshold: 0.18 });
+}, { threshold: 0.2 });
 
 document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-
-/* Card tilt */
-document.querySelectorAll(".card").forEach(card => {
-  card.addEventListener("mousemove", e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    card.style.transform = `rotateX(${ -y * 10 }deg) rotateY(${ x * 10 }deg)`;
-  });
-  card.addEventListener("mouseleave", () => {
-    card.style.transform = "none";
-  });
-});
 </script>
 
 </body>
