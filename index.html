@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>AI Fake News Detection System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Inter font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ---------------- ROOT SYSTEM ---------------- */
+:root {
+  --bg-1: #020617;
+  --bg-2: #0b1f3a;
+  --accent: #22c55e;
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --speed-fast: 0.25s;
+  --speed-med: 0.45s;
+  --speed-slow: 0.8s;
+}
+
+/* ---------------- RESET ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------------- BODY & BACKGROUND ---------------- */
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  min-height: 100vh;
+  color: var(--text-main);
+  background: linear-gradient(120deg, var(--bg-1), var(--bg-2), var(--bg-1));
+  background-size: 300% 300%;
+  animation: bgFlow 18s ease infinite;
+  overflow-x: hidden;
+}
+
+@keyframes bgFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---------------- OVERLAY ---------------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at top,
+    rgba(2,6,23,0.4),
+    rgba(2,6,23,0.9)
+  );
+  pointer-events: none;
+}
+
+/* ---------------- HERO ---------------- */
+.hero {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 90px 20px 70px;
+  text-align: center;
+  z-index: 1;
+}
+
+/* ---------------- ENTRANCE ANIMATIONS ---------------- */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeUp var(--speed-slow) var(--ease) forwards;
+}
+
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.45s; }
+.delay-4 { animation-delay: 0.6s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------- ICON ---------------- */
+.shield-icon {
+  font-size: 72px;
+  margin-bottom: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 26px;
+  background: rgba(34, 197, 94, 0.14);
+  color: var(--accent);
+  box-shadow:
+    0 0 0 1px rgba(34, 197, 94, 0.3),
+    0 25px 70px rgba(34, 197, 94, 0.25);
+}
+
+/* ---------------- TEXT ---------------- */
+h1 {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #86efac;
+  margin-bottom: 28px;
+}
+
+.hero-text {
+  max-width: 720px;
+  margin: 0 auto 42px;
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #cbd5f5;
+}
+
+/* ---------------- BUTTON ---------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 38px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+  color: #022c22;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition:
+    transform var(--speed-fast) var(--ease),
+    box-shadow var(--speed-fast) var(--ease);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(34, 197, 94, 0.4);
+}
+
+/* ---------------- FEATURES ---------------- */
+.features {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+/* ---------------- CARD ---------------- */
+.card {
+  padding: 30px 28px 32px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  transition:
+    transform var(--speed-med) var(--ease),
+    box-shadow var(--speed-med) var(--ease),
+    border var(--speed-med) var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(34, 197, 94, 0.4);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------------- CARD ICON ---------------- */
+.card .icon {
+  font-size: 36px;
+  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: rgba(34, 197, 94, 0.14);
+  color: var(--accent);
+  box-shadow:
+    0 0 0 1px rgba(34, 197, 94, 0.25),
+    0 12px 30px rgba(34, 197, 94, 0.25);
+}
+
+.card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #d1d5db;
+}
+
+/* ---------------- DISCLAIMER ---------------- */
+.disclaimer {
+  margin-top: 80px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+</style>
+</head>
+
+<body>
+<div class="overlay"></div>
+
+<main class="hero">
+  <div class="shield-icon fade-up">🛡️</div>
+
+  <h1 class="fade-up delay-1">AI Fake News Detection System</h1>
+  <h2 class="fade-up delay-2">“Think Before You Believe”</h2>
+
+  <p class="hero-text fade-up delay-3">
+    Our advanced AI system analyzes news articles and images to detect
+    misinformation using OCR and machine learning, providing confidence
+    scores and transparent explanations.
+  </p>
+
+  <a href="detector.html" class="btn fade-up delay-4">Launch Detector</a>
+
+  <section class="features">
+    <div class="card fade-up delay-1">
+      <div class="icon">🔍</div>
+      <h3>Text Analysis</h3>
+      <p>Paste news content and receive instant AI-based credibility analysis.</p>
+    </div>
+
+    <div class="card fade-up delay-2">
+      <div class="icon">🖼️</div>
+      <h3>Image OCR</h3>
+      <p>Upload screenshots or photos and extract text automatically.</p>
+    </div>
+
+    <div class="card fade-up delay-3">
+      <div class="icon">✅</div>
+      <h3>Verdict & Explanation</h3>
+      <p>Clear verdicts supported by confidence scores and reasoning.</p>
+    </div>
+  </section>
+
+  <div class="disclaimer fade-up delay-4">
+    Academic Project Credit: Prabesh (Team Lead), Nirdosh, Koshish
+  </div>
+</main>
+</body>
+</html>
