@@ -34,13 +34,13 @@ body.detector-page {
 
 /* ================= HEADER ================= */
 .detector-header {
-  height: 56px;
+  height: 60px;
   background: linear-gradient(180deg, #020617, #020617f2);
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 0 18px;
   animation: slideDown 0.7s var(--ease) both;
 }
 
@@ -50,14 +50,15 @@ body.detector-page {
 }
 
 .detector-header h1 {
-  font-size: 15px;
+  font-size: 18px; /* ⬆️ bigger heading */
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 /* ================= HEADER ICONS ================= */
 .header-icon {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
   transition: transform 0.35s var(--ease), opacity 0.25s;
   animation: iconFloat 4s ease-in-out infinite;
@@ -66,7 +67,7 @@ body.detector-page {
 .header-icon img {
   width: 100%;
   height: 100%;
-  filter: invert(1); /* FORCE VISIBILITY */
+  filter: invert(1);
 }
 
 @keyframes iconFloat {
@@ -85,7 +86,7 @@ body.detector-page {
 /* ================= MAIN ================= */
 .detector-main {
   flex: 1;
-  padding: 20px 14px;
+  padding: 22px 16px;
   text-align: center;
   animation: fadeUp 0.9s var(--ease) both;
 }
@@ -98,11 +99,11 @@ body.detector-page {
 /* ================= INFO CARD ================= */
 .info-card {
   background: var(--surface);
-  padding: 16px;
+  padding: 18px;
   border-radius: var(--radius);
-  margin-bottom: 18px;
-  font-size: 14px;
-  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: 15px; /* ⬆️ bigger subheading text */
+  line-height: 1.65;
   color: var(--text-secondary);
   box-shadow: 0 14px 34px rgba(0,0,0,0.07);
   animation: popIn 0.8s var(--ease) both;
@@ -141,8 +142,8 @@ body.detector-page {
 
 .input-bar input {
   flex: 1;
-  height: 48px;
-  border-radius: 24px;
+  height: 46px;
+  border-radius: 23px;
   border: none;
   padding: 0 16px;
   font-size: 14px;
@@ -151,8 +152,8 @@ body.detector-page {
 
 /* ================= ATTACH ICON ================= */
 .attach-icon {
-  width: 32px;
-  height: 32px;
+  width: 36px;   /* ⬆️ slightly bigger */
+  height: 36px;
   cursor: pointer;
   transition: transform 0.35s var(--ease);
 }
@@ -164,16 +165,16 @@ body.detector-page {
 }
 
 .attach-icon:hover {
-  transform: scale(1.3) rotate(-8deg);
+  transform: scale(1.25) rotate(-8deg);
 }
 
 /* ================= SEND BUTTON ================= */
 .send-btn {
-  width: 52px;
-  height: 52px;
+  width: 46px;   /* ⬇️ slightly smaller */
+  height: 46px;
   border-radius: 50%;
   border: none;
-  background: #e5e7eb; /* LIGHT GREY */
+  background: #e5e7eb;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -183,12 +184,12 @@ body.detector-page {
 }
 
 @keyframes sendBreath {
-  50% { box-shadow: 0 0 0 10px rgba(255,255,255,0.12); }
+  50% { box-shadow: 0 0 0 8px rgba(255,255,255,0.12); }
 }
 
 .send-btn img {
-  width: 28px; /* BIGGER ICON */
-  height: 28px;
+  width: 26px;
+  height: 26px;
 }
 
 .send-btn:hover {
@@ -204,11 +205,28 @@ body.detector-page {
 
 /* ================= MOBILE ================= */
 @media (max-width: 600px) {
-  .detector-main { padding: 16px 12px; }
-  .info-card { font-size: 13px; }
-  .header-icon { width: 32px; height: 32px; }
-  .send-btn { width: 56px; height: 56px; }
-  .send-btn img { width: 30px; height: 30px; }
+  .detector-header h1 {
+    font-size: 16px;
+  }
+
+  .info-card {
+    font-size: 14px;
+  }
+
+  .attach-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .send-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .send-btn img {
+    width: 24px;
+    height: 24px;
+  }
 }
 </style>
 </head>
